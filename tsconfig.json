@@ -1,12 +1,24 @@
+
 {
+  "include": [
+    "src/**/*",
+  ],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es6",
+    "lib": ["DOM", "ES6", "DOM.Iterable", "ScriptHost"],
+    "target": "ES6",
+    "module": "ES6",
+    "moduleResolution": "node",
+    "baseUrl": "./src/", // базовый каталог
+    "resolveJsonModule": true, // импорт JSON
+    "esModuleInterop": true, // позволяет импортировать CommonJS пакеты как ES6
+    "forceConsistentCasingInFileNames": true, // режим чувствительности к регистру
+    "noImplicitReturns": true, // все ли ветки функции возвращают значения
+    "noPropertyAccessFromIndexSignature": true, // запрещает обращаться через точку если свойство описано не явно
     "jsx": "react",
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "Node"
+    "skipLibCheck": true,
+    "strict": true,
+    "allowUnreachableCode": false, // запрещает недосягаемый код
   }
 }
