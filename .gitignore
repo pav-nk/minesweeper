@@ -1,5 +1,19 @@
 # dependencies
-node_modules
+/node_modules
 
-# production
-build
+# System Files
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+
+# Links
+*.lnk
+.idea/
+*.PEM
+.vscode/
+
+# Logs
+npm-debug.log
+
+# Block build
+/dist
