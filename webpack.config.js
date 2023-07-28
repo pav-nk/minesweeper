@@ -1,37 +1,83 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const path = require("path")
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin")
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 
-module.exports = {
-	entry: path.join(__dirname, 'src', 'index.tsx'),
-	output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'index.[contenthash:4].js',
-    clean: true,
-  },
-	module: {
-    rules: [
-			{
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-			{
-        test: /\.styl$/,
-        use: ['style-loader', 'css-loader', 'stylus-loader'],
-      },
+const resourceDir = path.resolve(__dirname, "./src")
+const appEntry = path.join(resourceDir, "./Client/index.tsx")
+const htmlTemplate = path.join(resourceDir, "./Client/index.html")
+const destinationDir = path.resolve(__dirname, "./dist")
+
+module.exports = (_, argv) => {
+  const modeEnv = argv.mode || "development";
+  const isProduction = modeEnv === "production";
+  const isDevelopment = !isProduction;
+  const isWatch = argv?.env?.WEBPACK_SERVE ?? false
+
+  return {
+    entry: {
+      main: appEntry,
+    },
+    output: {
+      filename: "[name].[chunkhash].js",
+      path: destinationDir,
+      publicPath: "/",
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts(x?)$/,
+          exclude: /[\\/]node_modules[\\/]/,
+          use: [
+            {
+              loader: "ts-loader",
+              options: {
+                transpileOnly: isDevelopment,
+              },
+            },
+          ],
+        },
+        {
+          test: /\.styl$/,
+          use: ["style-loader", "css-loader", "stylus-loader"],
+        },
+      ],
+    },
+    plugins: [
+      isDevelopment &&
+        new ForkTsCheckerWebpackPlugin({
+          async: false,
+        }),
+      isWatch && new ReactRefreshWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        template: htmlTemplate,
+      }),
     ],
-  },
-	plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'public', 'index.html'),
-      filename: 'index.html',
-    })
-  ],
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-	devServer: {
-    watchFiles: path.join(__dirname, 'src'),
-    port: 9000,
-  },
-};
+    resolve: {
+      extensions: [".ts", ".tsx", ".js", ".jsx"],
+      plugins: [new TsconfigPathsPlugin()],
+    },
+    devServer: {
+      static: {
+        directory: destinationDir,
+      },
+      client: {
+        progress: true,
+      },
+      compress: false,
+      historyApiFallback: {
+        disableDotRule: true,
+      },
+      hot: true,
+      open: true,
+      port: 4200,
+    },
+    performance: {
+      hints: false,
+    },
+    stats: "errors-warnings",
+    target: isProduction ? "browserslist" : "web",
+    devtool: isProduction ? false : "eval-cheap-source-map",
+  }
+}
