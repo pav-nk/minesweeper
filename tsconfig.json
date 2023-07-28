@@ -19,7 +19,7 @@
     "jsx": "react",
     "target": "ES5",
     "sourceMap": true,
-    "lib": ["ESNext", "DOM", "DOM.Iterable"]
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
