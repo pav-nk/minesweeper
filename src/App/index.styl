@@ -1,3 +1,5 @@
+@import './reset.styl'
+
 html, body
     padding 0
     margin 0
@@ -28,12 +30,44 @@ html, body
     height 30em
     width 80%
     margin 2em auto
+    border-radius 10px
+    background #1a2b33
+    padding .5rem
+    display grid
+    grid-template-rows repeat(9, 1fr)
+    grid-template-columns 1fr
+    gap .5rem
+
+.row
+    display grid
+    grid-template-rows 1fr
+    grid-template-columns repeat(9, 1fr)
+    gap: .5rem
+
+.cell
+    background #a9bec8
+    border-radius 5px
+    display flex
+    justify-content center
+    align-items center
+    cursor pointer
+    outline 2px solid rgba(255, 255, 255, .2)
+
+.logo
+    display flex
+    align-items center
+    justify-content space-between
+
+.title
+    font-size 1.5rem
+    margin-left .5rem
 
 .btn
     font-family 'Outfit', sans-serif
     background #f2b138
     color #1a2b33
     padding-bottom 5px
+    cursor pointer
     display grid
     place-items center
     font-weight 700

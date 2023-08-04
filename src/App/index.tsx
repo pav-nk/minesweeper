@@ -1,12 +1,14 @@
 import React from 'react';
 require('./index.styl');
+import logo from './assets/images/logo.png';
 
 export function App() {
     return (
         <div className="wrapper">
             <div className="container">
                 <div className="logo">
-                    <img src="" alt="minesweeper" />
+                    <img src={logo} alt="minesweeper" />
+                    <h1 className="title">minesweeper</h1>
                 </div>
                 <div className="field">
                     <div className="row">

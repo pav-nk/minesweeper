@@ -42,6 +42,7 @@ module.exports = (_, argv) => {
           test: /\.styl$/,
           use: ["style-loader", "css-loader", "stylus-loader"],
         },
+        { test: /\.(jpg|png|svg|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/, use: ['file-loader'], },
       ],
     },
     plugins: [
