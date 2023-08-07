@@ -1,8 +1,17 @@
 import React from 'react';
 require('./index.styl');
 import logo from './assets/images/logo.png';
+// import { ICell } from './types/ICell';
+import { Field } from './components/Field';
 
-export function App() {
+
+const App: React.FC = () => {
+    const [field, setField] = React.useState(false);
+
+    const generateNewField = () => {
+        setField(() => true);
+    };
+
     return (
         <div className="wrapper">
             <div className="container">
@@ -10,14 +19,12 @@ export function App() {
                     <img src={logo} alt="minesweeper" />
                     <h1 className="title">minesweeper</h1>
                 </div>
-                <div className="field">
-                    <div className="row">
-                        <div className="cell"></div>
-                    </div>
-                </div>
-                <button className="btn">Reset game!</button>
+                {field && <Field />}
+                <button className="btn" onClick={() => generateNewField()}>Generate a field</button>
             </div>
             <div className="footer"></div>
         </div>
     );
-}
+};
+
+export { App };
