@@ -10,12 +10,19 @@ export function App() {
             <div className="wrapper">
                 <Cell
                     type="bomb"
-                    state="closed"
+                    state="opened"
                     onClick={console.log}
                     onRightClick={console.log}
                 />
                 <Cell
                     type={1}
+                    state="opened"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                    content={1}
+                />
+                <Cell
+                    type="empty"
                     state="opened"
                     onClick={console.log}
                     onRightClick={console.log}
@@ -28,6 +35,18 @@ export function App() {
                 />
                 <Cell
                     type="empty"
+                    state="closed"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                />
+                <Cell
+                    type="bomb"
+                    state="closed"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                />
+                <Cell
+                    type={1}
                     state="closed"
                     onClick={console.log}
                     onRightClick={console.log}

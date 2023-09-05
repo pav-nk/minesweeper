@@ -1,19 +1,39 @@
 cell-closed-bg-color = #1BB89A
+cell-closed-active-bg-color = #27A28A
 cell-opened-bg-color = #FFFFFF
+cell-opened-active-bg-color = #E5E5E5
 cell-text-color = #F49D1E
-cell-active-bg-color = #27A28A
+cell-closed-border = 0.2rem solid #2C3E50
 
-.cell
-    width 2.5rem
-    height 2.5rem
-    border 1px solid #2C3E50
-    outline none
-    border-radius 0.3rem
-    background cell-closed-bg-color
-    cursor pointer
-    transition .3s background ease-in-out
+cell-type(bgColor, bgActiveColor, border, textColor = transparent)
+    background-color bgColor
+    border-bottom border
+    color textColor
     &:hover,
     &:focus,
     &:active
-        background cell-active-bg-color
+        background-color bgActiveColor
+
+.cell
+    width 2.8rem
+    height 2.8rem
+    outline none
+    border-radius 0.3rem
+    cursor pointer
+    transition .3s background ease-in-out
+    box-shadow rgba(0, 0, 0, 0.16) 0px 1px 4px
+    font-size 1.7rem
+    font-weight bold
+    display flex
+    justify-content center
+    align-items center
+    &--flagged
+        cell-type(cell-closed-bg-color, cell-closed-active-bg-color, none)
+    &--opened
+        cell-type(cell-opened-bg-color, cell-opened-active-bg-color, none, cell-text-color)
+    &--bomb
+        cell-type(cell-opened-bg-color, cell-opened-active-bg-color, none, cell-text-color)
+    &--closed
+        cell-type(cell-closed-bg-color, cell-closed-active-bg-color, cell-closed-border)
+
 
