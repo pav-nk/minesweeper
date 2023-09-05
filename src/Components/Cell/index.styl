@@ -1,0 +1,19 @@
+cell-closed-bg-color = #1BB89A
+cell-opened-bg-color = #FFFFFF
+cell-text-color = #F49D1E
+cell-active-bg-color = #27A28A
+
+.cell
+    width 2.5rem
+    height 2.5rem
+    border 1px solid #2C3E50
+    outline none
+    border-radius 0.3rem
+    background cell-closed-bg-color
+    cursor pointer
+    transition .3s background ease-in-out
+    &:hover,
+    &:focus,
+    &:active
+        background cell-active-bg-color
+

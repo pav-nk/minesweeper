@@ -1,30 +1,38 @@
 import React from 'react';
-require('./index.styl');
-import logo from './assets/images/logo.png';
-// import { ICell } from './types/ICell';
-import { Field } from './components/Field';
+import { Cell } from 'Components/Cell';
 
-
-const App: React.FC = () => {
-    const [field, setField] = React.useState(false);
-
-    const generateNewField = () => {
-        setField(() => true);
-    };
+export function App() {
+    require('./reset.styl');
+    require('./index.styl');
 
     return (
-        <div className="wrapper">
-            <div className="container">
-                <div className="logo">
-                    <img src={logo} alt="minesweeper" />
-                    <h1 className="title">minesweeper</h1>
-                </div>
-                {field && <Field />}
-                <button className="btn" onClick={() => generateNewField()}>Generate a field</button>
+        <>
+            <div className="wrapper">
+                <Cell
+                    type="bomb"
+                    state="closed"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                />
+                <Cell
+                    type={1}
+                    state="opened"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                />
+                <Cell
+                    type="empty"
+                    state="flagged"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                />
+                <Cell
+                    type="empty"
+                    state="closed"
+                    onClick={console.log}
+                    onRightClick={console.log}
+                />
             </div>
-            <div className="footer"></div>
-        </div>
+        </>
     );
-};
-
-export { App };
+}
