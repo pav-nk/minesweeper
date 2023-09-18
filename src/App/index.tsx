@@ -1,5 +1,6 @@
 import React from 'react';
 import { Cell } from 'Components/Cell';
+import { Board } from 'Components/Board';
 
 export function App() {
     require('./reset.styl');
@@ -8,6 +9,7 @@ export function App() {
     return (
         <>
             <div className="wrapper">
+                <Board />
                 <Cell
                     type="bomb"
                     state="opened"
