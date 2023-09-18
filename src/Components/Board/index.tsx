@@ -5,7 +5,7 @@ const CELLS_COUNT = 10;
 
 const getRandomNum = (num: number): number => {
     // TODO: доработать getRandomNum
-    return Math.floor(Math.random() * (num + 1));
+    return Math.floor(Math.random() * num);
 };
 
 const getRandomCoord = (
@@ -28,30 +28,41 @@ const getRandomCoord = (
 };
 
 // TODO: написать функцию которая посчитает на каждой ячейке количество мин вокруг нее.
-// const getRowWithNumValues = (row: number[], indexRow: number, board: number[][]): number[] => {
-//     const cellTraversePath: number[][] = [
-//         [-1, -1],
-//         [0, -1],
-//         [1, -1],
-//         [-1, 1],
-//         [0, 1],
-//         [1, 1],
-//         [-1, 0],
-//         [1, 0],
-//     ];
-//     const result = row.map((cell, index) => {
-//         const [rowCount, cellCount] = [indexRow, index];
-//         const minesCol = cellTraversePath.map(([x, y]) => {
-//             const cell =
-//         })
 
-//     })
-// };
+const getBoardWithNumValues = (board: number[][]): number[][] => {
+    const result: number[][] = [];
+    for (let row = 0; row < board.length; row += 1) {
+        const currentRow = board[row];
+        if (currentRow) {
+            for (let col = 0; col < currentRow.length; col += 1) {
+                let currentValue = currentRow[col];
 
-// const getBoardWithNumValues = (board: number[][]): number[][] => {
-//     const result = board.map((row) => )
+                if (currentValue === -1) {
+                    continue;
+                }
 
-// };
+                let minesCount = 0;
+
+                for (const stepRow of [-1, 0, 1]) {
+                    for (const stepCol of [-1, 0, 1]) {
+                        const stepRowCurrent = board[row + stepRow];
+                        if (stepRowCurrent) {
+                            const colValue = stepRowCurrent[col + stepCol];
+                            if (colValue === undefined) continue;
+                            if (colValue === -1) {
+                                minesCount += 1;
+                            }
+                        }
+                    }
+                }
+
+                currentRow[col] = minesCount;
+            }
+            result.push(currentRow);
+        }
+    }
+    return result;
+};
 
 export function Board() {
     require('./index.styl');
@@ -72,7 +83,11 @@ export function Board() {
 
         console.log(boardNext);
 
-        setBoard(boardNext);
+        const boardWithNumValues: number[][] = getBoardWithNumValues(boardNext);
+
+        console.log(boardWithNumValues);
+
+        setBoard(boardWithNumValues);
     }, []);
 
     console.log(board);
