@@ -26,66 +26,30 @@ const getRandomCoord = (
     return [row, cell];
 };
 
-// TODO: написать функцию которая посчитает на каждой ячейке количество мин вокруг нее.
-
-const STEPS_DICT = [
-    [-1, -1],
-    [-1, 0],
-    [-1  1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1  1],
-]
-
-// 1 замутировать масссив board
-// 2 пройтись по каждой клетке 
-// 
-
-// Можно расстановку мин и калькуляцию сделать гораздо проще и дешевле:
-// 1) На поле расставляем нули
-// 2) Запускаем цикл с расстановкой бомб
-// 3) На каждом шаге цикла устанавливаем бомбу и сразу же вокруг нее все инкрементируем на 1. Только не забудь сделать проверку, если сосед -1, то инкрементировать его не надо. 
-// Вуаля, йопт
-
-// const getBoardWithNumValues = (board: number[][]): number[][] => {
-//     const result: number[][] = [];
-//     for (let row = 0; row < board.length; row += 1) {
-//         const currentRow = board[row];
-//         if (currentRow) {
-//             for (let col = 0; col < currentRow.length; col += 1) {
-//                 let currentValue = currentRow[col];
-
-//                 if (currentValue === -1) {
-//                     continue;
-//                 }
-
-//                 let minesCount = 0;
-
-//                 for (const stepRow of [-1, 0, 1]) {
-//                     for (const stepCol of [-1, 0, 1]) {
-//                         const stepRowCurrent = board[row + stepRow];
-//                         if (stepRowCurrent) {
-//                             const colValue = stepRowCurrent[col + stepCol];
-//                             if (colValue === undefined) continue;
-//                             if (colValue === -1) {
-//                                 minesCount += 1;
-//                             }
-//                         }
-//                     }
-//                 }
-
-//                 currentRow[col] = minesCount;
-//             }
-//             result.push(currentRow);
-//         }
-//     }
-//     return result;
-// };
-
-const addValuesAroundMine = (row: number, cell: number, board: number[][]) => {
-
+const addValuesAroundMine = (row: number, col: number, board: number[][]) => {
+    const STEPS_DICT: [number, number][] = [
+        [-1, -1],
+        [-1, 0],
+        [-1, 1],
+        [0, -1],
+        [0, 1],
+        [1, -1],
+        [1, 0],
+        [1, 1],
+    ];
+    STEPS_DICT.forEach((step: [number, number]) => {
+        const [rowStep, colStep] = step;
+        if (rowStep !== undefined) {
+            const boardRow = board[rowStep + row];
+            if (boardRow) {
+                if (boardRow[colStep + col] !== undefined) {
+                    if (boardRow[colStep + col] !== -1) {
+                        boardRow[colStep + col] += 1;
+                    }
+                }
+            }
+        }
+    });
 };
 
 export function Board() {
